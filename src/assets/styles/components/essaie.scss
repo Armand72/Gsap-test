@@ -1,0 +1,295 @@
+.essaie {
+  background-color: red;
+  width: 200px;
+  height: 200px;
+
+  @include mq(false, $tablet) {
+    background-color: blue;
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.bg {
+  background-image: url(/bg.jpg);
+  height: 200px;
+
+  & > img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.box-1 {
+  background: #fffd98;
+  height: 10rem;
+  width: 50%;
+  background-image: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+}
+
+.box-2 {
+  background: #b3d2b2;
+  height: 10rem;
+  width: 50%;
+  background-image: linear-gradient(145deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+}
+
+.box-3 {
+  background: #7a9cc6;
+  height: 10rem;
+  width: 50%;
+  background-image: linear-gradient(
+    145deg,
+    rgba(255, 0, 0, 0),
+    rgba(255, 0, 0, 0.25)
+  );
+}
+
+.hue {
+  color: red;
+  filter: hue-rotate(180deg);
+}
+
+.other-item {
+  padding: 1em;
+  flex-grow: 0.4;
+}
+
+.lineMilieu {
+  position: relative;
+  width: fit-content;
+}
+
+.lineMilieu::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  background: black;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  transition: transform 150ms ease-in-out;
+}
+
+.lineMilieu:hover:after {
+  transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+}
+.link {
+  position: relative;
+  width: fit-content;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 250ms ease-in;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.button {
+  cursor: pointer;
+  border: 0;
+  background: #ee6352;
+  color: white;
+  padding: 1em 1.5em;
+  position: relative;
+  z-index: 1;
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.button + .button {
+  margin-left: 1em;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 200ms ease-in;
+}
+
+// menu
+
+.menu-toggle {
+  display: block;
+  font-size: 1rem;
+  border: 0;
+  background: 0;
+  padding: 1em;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  display: block;
+  background: black;
+  height: 3px;
+  width: 1.5em;
+  border-radius: 3px;
+  outline: none;
+  transition: transform ease-in-out 500ms, opacity linear 300ms;
+}
+
+.hamburger::after {
+  position: absolute;
+  transform: translateY(6px);
+}
+
+.hamburger::before {
+  position: absolute;
+  transform: translateY(-6px);
+}
+
+.open {
+  outline: none;
+  transform: rotate(45deg);
+  transition: transform 350ms linear;
+}
+
+.open .hamburger::after {
+  opacity: 0;
+}
+
+.open .hamburger::before {
+  transform: rotate(90deg);
+}
+
+.open.menu-toggle:hover .hamburger {
+  transform: rotate(1.25turn);
+}
+
+// searchbar
+
+.search {
+  border: 2px solid salmon;
+  display: flex;
+  border-radius: 100vh;
+  overflow: hidden;
+  font-size: 1.25em;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  transition: width 450ms cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  padding: 3px;
+}
+
+.search__input {
+  border: 0;
+  padding: 0.25em 1em;
+  flex-grow: 1;
+  outline: 0;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.search__submit {
+  font-size: 1.5rem;
+  margin-left: auto;
+  background: 0;
+  border: 0;
+  cursor: pointer;
+  border-radius: 100vh;
+  transition: background 200ms ease-out;
+  width: calc(60px - 10px);
+  height: calc(60px- 10px);
+  color: salmon;
+}
+
+.search:focus-within {
+  // box-shadow: 0 0 5px var(--clr-primary);
+  width: 60%;
+
+  .search__input {
+    opacity: 1;
+    z-index: initial;
+    cursor: initial;
+    width: calc(100% - 60px);
+  }
+
+  .search__submit {
+    background: salmon;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    // transition: transform 500ms ease-out;
+
+    &:hover,
+    &:focus {
+      outline: 0;
+      // transform: rotate(1turn);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.65);
+    }
+  }
+}
+
+.image {
+  width: 20px;
+  height: 20px;
+}
+
+// curosr
+
+// width:min(500px, 70%) = width:70% , max-width:500px
+
+// gap:1em
+// flex-shrink / flex-grow
+
+// font-size: calc(2.25rem + (36 - 20) * ((100vw - 300px) / (1600 - 300)));
+// font-size:clamp(5rem, 20vw, 8rem
+
+// outline / outline-offset
+
+//  select : appearance:none => dropdown button disappear
+
+// place-items!!!!!!!!!
+
+// div + div s'il y a une div avant il y aura le css
+// * search for siblings
+
+// everythigng that has something before it
+// * + * {
+//   margin: 1em 0 0;
+// }
+
+// scroll-behaviour:smooth
